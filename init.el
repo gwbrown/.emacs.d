@@ -13,6 +13,10 @@
 (setq coding-system-for-write 'utf-8)
 (setq sentence-end-double-space nil)
 
+;; Recent files list
+(recentf-mode 1)
+(setq-default recent-save-file "~/.emacs.d/recentf")
+
 ;; Font
 (add-to-list 'default-frame-alist '(font . "Iosevka Term 13"))
 
@@ -51,7 +55,7 @@
 	helm-mode-fuzzy-match t
 	helm-buffers-fuzzy-matching t
 	helm-recentf-fuzzy-match t
-	helm-locate-fuzzy-match t
+	;;helm-locate-fuzzy-match t ;; doesn't work on macos afaict
 	helm-semantic-fuzzy-match t
 	helm-imenu-fuzzy-match t
 	helm-completion-in-region-fuzzy-match t
@@ -60,7 +64,9 @@
 	helm-move-to-line-cycle-in-source t
 	helm-echo-input-in-header-line t
 	helm-autoresize-max-height 0
-	helm-autoresize-min-height 20)
+	helm-autoresize-min-height 20
+	helm-ff-file-name-history-use-recentf t
+	helm-locate-command "locate %s %s")
   :config
   (helm-mode 1))
 
@@ -87,6 +93,10 @@
   (require 'evil-magit)
   :pin melpa-stable)
 
+;; Movement
+(use-package ace-jump-mode
+  :ensure t)
+
 ;; Custom keybinding
 (use-package general
   :ensure t
@@ -97,7 +107,9 @@
 	   ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
 	   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
 	   "SPC" '(helm-M-x :which-key "M-x")
+	   ;; File browsing
 	   "ff"  '(helm-find-files :which-key "find files")
+	   "fj"  '(helm-mini :which-key "helm mini")
 	   ;; Buffers
 	   "bb"  '(helm-buffers-list :which-key "buffers list")
 	   "bx"  '(evil-delete-buffer :which-key "delete buffer")
@@ -110,6 +122,8 @@
 	   "w/"  '(split-window-right :which-key "split right")
 	   "w-"  '(split-window-below :which-key "split bottom")
 	   "wx"  '(delete-window :which-key "delete window")
+	   ;; Movement
+	   "jj"  '(ace-jump-mode :which-key "ace jump")
 	   ;; Magit
 	   "gg"  '(magit-status :which-key "magit status")
 	   ;; Evaluation
@@ -161,6 +175,13 @@
 	geiser-racket-binary "/usr/local/bin/racket")
   :pin melpa-stable)
 
+;; Lisp
+(use-package slime
+  :ensure t
+  :init
+  (setq inferior-lisp-program "/usr/local/bin/sbcl"
+	slime-contribs '(slime-fancy)))
+
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -173,7 +194,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
