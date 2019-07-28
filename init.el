@@ -3,7 +3,7 @@
 ;; Adjust UI
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(menu-bar-mode -1)
+(menu-bar-mode t)
 
 ;; Various settings
 (setq vc-follow-symlinks t) ;; don't ask for confirmation when opening symlinked file
@@ -97,7 +97,7 @@
 	   ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
 	   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
 	   "SPC" '(helm-M-x :which-key "M-x")
-	   "pf"  '(helm-find-files :which-key "find files")
+	   "ff"  '(helm-find-files :which-key "find files")
 	   ;; Buffers
 	   "bb"  '(helm-buffers-list :which-key "buffers list")
 	   "bx"  '(evil-delete-buffer :which-key "delete buffer")
@@ -112,6 +112,9 @@
 	   "wx"  '(delete-window :which-key "delete window")
 	   ;; Magit
 	   "gg"  '(magit-status :which-key "magit status")
+	   ;; Evaluation
+	   "eb"  '(eval-buffer :which-key "evalutate buffer")
+	   "ee"  '(eval-last-sexp :which-key "evaluate last expression")
 	   ;; Others
 	   "at"  '(ansi-term :which-key "open terminal")
 	   ))
@@ -148,6 +151,16 @@
   :init
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+;; Languages
+
+;; Scheme
+(use-package geiser
+  :ensure t
+  :init
+  (setq geiser-active-implementations '(racket)
+	geiser-racket-binary "/usr/local/bin/racket")
+  :pin melpa-stable)
+
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -160,7 +173,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
