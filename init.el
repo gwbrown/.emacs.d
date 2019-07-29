@@ -185,6 +185,18 @@
   (setq inferior-lisp-program "/usr/local/bin/sbcl"
 	slime-contribs '(slime-fancy)))
 
+;; Asciidoc
+(use-package adoc-mode
+  :ensure t
+  :mode "\\.asciidoc\\'")
+
+;; Markdown
+(use-package markdown-mode
+  :ensure t
+  :mode
+  ("README\\.md\\'" . gfm-mode)
+  ("\\.md\\'" . markdown-mode))
+
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -197,7 +209,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
