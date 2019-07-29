@@ -201,6 +201,12 @@
   ("README\\.md\\'" . gfm-mode)
   ("\\.md\\'" . markdown-mode))
 
+;; Elasticsearch
+(use-package es-mode
+  :ensure t
+  :mode
+  ("\\.es$" . es-mode))
+
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -213,7 +219,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (es-mode markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
