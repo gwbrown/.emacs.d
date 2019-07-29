@@ -20,6 +20,8 @@
 ;; Font
 (add-to-list 'default-frame-alist '(font . "Iosevka Term 13"))
 
+;; Generally nice
+(add-hook 'prog-mode-hook #'electric-pair-mode)
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -166,6 +168,7 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Languages
+;; ---------
 
 ;; Scheme
 (use-package geiser
