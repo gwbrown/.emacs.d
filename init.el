@@ -86,14 +86,18 @@
 
 ;; Magit
 (use-package magit
-  :ensure t
-  :pin melpa-stable)
+  :ensure t)
 
 (use-package evil-magit
   :ensure t
   :init
-  (require 'evil-magit)
-  :pin melpa-stable)
+  (require 'evil-magit))
+
+;; Magithub is nice but is just way too slow with big repos like ES
+;; (use-package magithub
+;;   :ensure t
+;;   :config
+;;   (magithub-feature-autoinject t))
 
 ;; Movement
 (use-package ace-jump-mode
