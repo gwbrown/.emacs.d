@@ -22,6 +22,7 @@
 
 ;; Generally nice
 (add-hook 'prog-mode-hook #'electric-pair-mode)
+
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -85,7 +86,8 @@
   (which-key-mode 1))
 
 ;; Line numbers
-(global-linum-mode t)
+(setq display-line-number t)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Magit
 (use-package magit
