@@ -68,9 +68,12 @@
 	helm-autoresize-max-height 0
 	helm-autoresize-min-height 20
 	helm-ff-file-name-history-use-recentf t
+	helm-google-suggest-use-curl-p t
 	helm-locate-command "locate %s %s")
   :config
-  (helm-mode 1))
+  (helm-mode 1)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  )
 
 ;; Which Key
 (use-package which-key
