@@ -140,6 +140,7 @@
 	   "ee"  '(eval-last-sexp :which-key "evaluate last expression")
 	   ;; Others
 	   "at"  '(ansi-term :which-key "open terminal")
+	   "/"   '(comment-line :which-keyy "comment/uncomment line(s)")
 	   ))
 
 ;; Fancy titlebar for MacOS
