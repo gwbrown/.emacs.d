@@ -191,6 +191,12 @@
   :init
   (setq inferior-lisp-program "/usr/local/bin/sbcl"
 	slime-contribs '(slime-fancy)))
+(use-package evil-cleverparens
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'common-lisp-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'lisp-mode-hook #'evil-cleverparens-mode))
 
 ;; Asciidoc
 (use-package adoc-mode
@@ -220,9 +226,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (es-mode markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (evil-cleverparens evil-lispy smartparens evil-lisp-state es-mode markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
