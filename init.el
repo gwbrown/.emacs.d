@@ -141,7 +141,7 @@
 	   "eb"  '(eval-buffer :which-key "evalutate buffer")
 	   "ee"  '(eval-last-sexp :which-key "evaluate last expression")
 	   ;; Others
-	   "at"  '(ansi-term :which-key "open terminal")
+	   "at"  '(shell :which-key "open terminal")
 	   "/"   '(comment-line :which-keyy "comment/uncomment line(s)")
 	   ))
 
@@ -222,6 +222,7 @@
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
+(setq create-lockfiles nil)  ; stop making .#lock files
 
 ;; All this is auto generated
 (custom-set-variables
