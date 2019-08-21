@@ -123,7 +123,7 @@
 	   "fj"  '(helm-mini :which-key "helm mini")
 	   ;; Buffers
 	   "bb"  '(helm-buffers-list :which-key "buffers list")
-	   "bx"  '(evil-delete-buffer :which-key "delete buffer")
+	   "bx"  '(kill-this-buffer :which-key "delete buffer")
 	   "bk"  '(kill-buffer :which-key "kill buffer")
 	   ;; Window
 	   "wl"  '(windmove-right :which-key "move right")
@@ -142,7 +142,7 @@
 	   "ee"  '(eval-last-sexp :which-key "evaluate last expression")
 	   ;; Others
 	   "at"  '(shell :which-key "open terminal")
-	   "/"   '(comment-line :which-keyy "comment/uncomment line(s)")
+	   "/"   '(comment-line :which-key "comment/uncomment line(s)")
 	   ))
 
 ;; Fancy titlebar for MacOS
