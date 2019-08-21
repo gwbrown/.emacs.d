@@ -189,17 +189,19 @@
   :pin melpa-stable)
 
 ;; Lisp
-(use-package slime
-  :ensure t
-  :init
-  (setq inferior-lisp-program "/usr/local/bin/sbcl"
-	slime-contribs '(slime-fancy)))
-(use-package evil-cleverparens
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-  (add-hook 'common-lisp-mode-hook #'evil-cleverparens-mode)
-  (add-hook 'lisp-mode-hook #'evil-cleverparens-mode))
+(use-package sly
+ :ensure t
+ :init
+ (setq inferior-lisp-program "/usr/local/bin/ros -Q run")
+ :config
+ (general-define-key
+  :states '(normal visual insert emacs)
+  :keymaps 'lisp-mode-map
+  :prefix "SPC"
+  :non-normal-prefix "C-SPC"
+  "mm"  '(sly             :which-key "start sly")
+  "mer" '(sly-eval-region :which-key "eval region")
+  "med" '(sly-eval-defun  :which-key "eval defun")))
 
 ;; Asciidoc
 (use-package adoc-mode
