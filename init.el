@@ -29,7 +29,7 @@
 (setq package-archives '(("org"   . "http://orgmode.org/elpa/")
                          ("gnu"   . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap `use-package`
@@ -55,26 +55,26 @@
   :ensure t
   :init
   (setq helm-M-x-fuzzy-match t
-	helm-mode-fuzzy-match t
-	helm-buffers-fuzzy-matching t
-	helm-recentf-fuzzy-match t
-	;;helm-locate-fuzzy-match t ;; doesn't work on macos afaict
-	helm-semantic-fuzzy-match t
-	helm-imenu-fuzzy-match t
-	helm-completion-in-region-fuzzy-match t
-	helm-candidate-number-list 150
-	helm-split-window-in-side-p t
-	helm-move-to-line-cycle-in-source t
-	helm-echo-input-in-header-line t
-	helm-autoresize-max-height 0
-	helm-autoresize-min-height 20
-	helm-ff-file-name-history-use-recentf t
-	helm-google-suggest-use-curl-p t
-	helm-locate-command "locate %s %s")
+        helm-mode-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-recentf-fuzzy-match t
+        ;;helm-locate-fuzzy-match t ;; doesn't work on macos afaict
+        helm-semantic-fuzzy-match t
+        helm-imenu-fuzzy-match t
+        helm-completion-in-region-fuzzy-match t
+        helm-candidate-number-list 150
+        helm-split-window-in-side-p t
+        helm-move-to-line-cycle-in-source t
+        helm-echo-input-in-header-line t
+        helm-autoresize-max-height 0
+        helm-autoresize-min-height 20
+        helm-ff-file-name-history-use-recentf t
+        helm-google-suggest-use-curl-p t
+        helm-locate-command "locate %s %s")
   :config
   (helm-mode 1)
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-  )
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action))
+  
 
 ;; Which Key
 (use-package which-key
@@ -112,38 +112,38 @@
 (use-package general
   :ensure t
   :config (general-define-key
-	   :states '(normal visual insert emacs)
-	   :prefix "SPC"
-	   :non-normal-prefix "C-SPC"
-	   ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
-	   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-	   "SPC" '(helm-M-x :which-key "M-x")
-	   ;; File browsing
-	   "ff"  '(helm-find-files :which-key "find files")
-	   "fj"  '(helm-mini :which-key "helm mini")
-	   ;; Buffers
-	   "bb"  '(helm-buffers-list :which-key "buffers list")
-	   "bx"  '(kill-this-buffer :which-key "delete buffer")
-	   "bk"  '(kill-buffer :which-key "kill buffer")
-	   ;; Window
-	   "wl"  '(windmove-right :which-key "move right")
-	   "wh"  '(windmove-left :which-key "move left")
-	   "wk"  '(windmove-up :which-key "move up")
-	   "wj"  '(windmove-down :which-key "move bottom")
-	   "w/"  '(split-window-right :which-key "split right")
-	   "w-"  '(split-window-below :which-key "split bottom")
-	   "wx"  '(delete-window :which-key "delete window")
-	   ;; Movement
-	   "jj"  '(ace-jump-mode :which-key "ace jump")
-	   ;; Magit
-	   "gg"  '(magit-status :which-key "magit status")
-	   ;; Evaluation
-	   "eb"  '(eval-buffer :which-key "evalutate buffer")
-	   "ee"  '(eval-last-sexp :which-key "evaluate last expression")
-	   ;; Others
-	   "at"  '(shell :which-key "open terminal")
-	   "/"   '(comment-line :which-key "comment/uncomment line(s)")
-	   ))
+           :states '(normal visual insert emacs)
+           :prefix "SPC"
+           :non-normal-prefix "C-SPC"
+           ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
+           "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+           "SPC" '(helm-M-x :which-key "M-x")
+           ;; File browsing
+           "ff"  '(helm-find-files :which-key "find files")
+           "fj"  '(helm-mini :which-key "helm mini")
+           ;; Buffers
+           "bb"  '(helm-buffers-list :which-key "buffers list")
+           "bx"  '(kill-this-buffer :which-key "delete buffer")
+           "bk"  '(kill-buffer :which-key "kill buffer")
+           ;; Window
+           "wl"  '(windmove-right :which-key "move right")
+           "wh"  '(windmove-left :which-key "move left")
+           "wk"  '(windmove-up :which-key "move up")
+           "wj"  '(windmove-down :which-key "move bottom")
+           "w/"  '(split-window-right :which-key "split right")
+           "w-"  '(split-window-below :which-key "split bottom")
+           "wx"  '(delete-window :which-key "delete window")
+           ;; Movement
+           "jj"  '(ace-jump-mode :which-key "ace jump")
+           ;; Magit
+           "gg"  '(magit-status :which-key "magit status")
+           ;; Evaluation
+           "eb"  '(eval-buffer :which-key "evalutate buffer")
+           "ee"  '(eval-last-sexp :which-key "evaluate last expression")
+           ;; Others
+           "at"  '(shell :which-key "open terminal")
+           "/"   '(comment-line :which-key "comment/uncomment line(s)")))
+           
 
 ;; Fancy titlebar for MacOS
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -244,9 +244,9 @@
  '(package-selected-packages
    (quote
     (evil-cleverparens es-mode markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
-(custom-set-faces
+(custom-set-faces)
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ 
