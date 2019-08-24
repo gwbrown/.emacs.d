@@ -13,6 +13,9 @@
 (setq coding-system-for-write 'utf-8)
 (setq sentence-end-double-space nil)
 
+;; Tabs are awful & don't play nice with parinfer-mode
+(setq-default indent-tabs-mode nil)
+
 ;; Recent files list
 (recentf-mode 1)
 (setq-default recent-save-file "~/.emacs.d/recentf")
@@ -206,12 +209,36 @@
 (use-package parinfer
   :ensure t
   :init
-  (progn (setq parinfer-extensions '(defaults pretty-parens evil))
-   (add-hook 'clojure-mode-hook #'parinfer-mode)
-   (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
-   (add-hook 'common-lisp-mode-hook #'parinfer-mode)
-   (add-hook 'scheme-mode-hook #'parinfer-mode)
-   (add-hook 'lisp-mode-hook #'parinfer-mode)))
+  (progn
+    (setq parinfer-extensions '(defaults pretty-parens evil smart-tab))
+    (add-hook 'clojure-mode-hook #'parinfer-mode)
+    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+    (add-hook 'scheme-mode-hook #'parinfer-mode)
+    (add-hook 'lisp-mode-hook #'parinfer-mode))
+  :config
+  (progn
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :keymaps
+     '(emacs-lisp-mode-map
+       clojure-mode-map
+       common-lisp-mode-map
+       scheme-mode-map
+       lisp-mode-map)
+     "TAB" 'parinfer-smart-tab:dwim-right
+     "<tab>" 'parinfer-smart-tab:dwim-right
+     "S-TAB" 'parinfer-smart-tab:dwim-left
+     "<backtab>" 'parinfer-smart-tab:dwim-left)
+    (parinfer-strategy-add 'default
+      '("parinfer-smart-tab"))
+    ;; Disable electric pair of parens in parinfer-mode
+    (add-hook 'parinfer-mode-hook
+              (lambda ()
+                (setq-local electric-pair-inhibit-predicate
+                            `(lambda (c)
+                               (if (char-equal c 40) t (,electric-pair-inhibit-predicate c))))))))
+
 ;; Asciidoc
 (use-package adoc-mode
   :ensure t
