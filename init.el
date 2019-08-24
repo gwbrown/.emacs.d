@@ -185,7 +185,7 @@
   :ensure t
   :init
   (setq geiser-active-implementations '(racket)
-        geiser-racket-binary "/usr/local/bin/racket")
+     geiser-racket-binary "/usr/local/bin/racket")
   :pin melpa-stable)
 
 ;; Lisp
@@ -196,7 +196,7 @@
   :config
   (general-define-key
    :states '(normal visual insert emacs)
-   :keymaps 'common-lisp-mode-map
+   :keymaps 'lisp-mode-map
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    "mm"  '(sly             :which-key "start sly")
@@ -235,7 +235,6 @@
 (setq auto-save-default nil) ; stop creating #autosave# files
 (setq create-lockfiles nil)  ; stop making .#lock files
 
-;; All this is auto generated
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -243,7 +242,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-cleverparens es-mode markdown-mode adoc-mode ace-jump-mode slime geiser evil-magit magit rainbow-delimiters neotree all-the-icons projectile general which-key helm doom-themes evil use-package))))
+    (es-mode markdown-mode adoc-mode parinfer sly geiser rainbow-delimiters neotree all-the-icons projectile general ace-jump-mode evil-magit magit which-key helm doom-themes evil use-package))))
 (custom-set-faces)
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
