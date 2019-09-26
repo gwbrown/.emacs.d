@@ -260,7 +260,14 @@
     (setq es-always-pretty-print t)
     ;; Default username/password
     (add-to-list 'es-default-headers (cons "Authorization" (concat "Basic " (base64-encode-string "elastic:password"))))
-    (add-hook 'es-result-mode-hook 'hs-minor-mode))
+    (add-hook 'es-result-mode-hook 'hs-minor-mode)
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :keymaps 'es-mode-map
+     :prefix "SPC"
+     "me"  '(es-execute-request-dwim :which-key "execute request")
+     "mu"  '(es-set-endpoint-url     :which-key "set endpoint url")
+     "my"  '(es-copy-as              :which-key "copy as")))
   :mode
   ("\\.es$" . es-mode))
 
