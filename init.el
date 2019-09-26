@@ -254,6 +254,13 @@
 ;; Elasticsearch
 (use-package es-mode
   :ensure t
+  :config
+  (progn
+    ;; I don't ever want to see unformatted json, honestly
+    (setq es-always-pretty-print t)
+    ;; Default username/password
+    (add-to-list 'es-default-headers (cons "Authorization" (concat "Basic " (base64-encode-string "elastic:password"))))
+    (add-hook 'es-result-mode-hook 'hs-minor-mode))
   :mode
   ("\\.es$" . es-mode))
 
@@ -271,8 +278,13 @@
    (quote
     (es-mode markdown-mode adoc-mode parinfer sly geiser rainbow-delimiters neotree all-the-icons projectile general ace-jump-mode evil-magit magit which-key helm doom-themes evil use-package))))
 (custom-set-faces)
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+
