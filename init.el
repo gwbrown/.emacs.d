@@ -44,8 +44,16 @@
 ;; Vim mode
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t
+        evil-want-keybinding nil)
   :config
   (evil-mode 1))
+
+(use-package evil-collection
+  :ensure t
+  :config
+  (evil-collection-init))
 
 ;; Theme
 (use-package doom-themes
@@ -188,7 +196,7 @@
   :ensure t
   :init
   (setq geiser-active-implementations '(racket)
-     geiser-racket-binary "/usr/local/bin/racket")
+        geiser-racket-binary "/usr/local/bin/racket")
   :pin melpa-stable)
 
 ;; Lisp
@@ -283,8 +291,18 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (es-mode markdown-mode adoc-mode parinfer sly geiser rainbow-delimiters neotree all-the-icons projectile general ace-jump-mode evil-magit magit which-key helm doom-themes evil use-package))))
-(custom-set-faces)
+    (evil-collection es-mode markdown-mode adoc-mode parinfer sly geiser rainbow-delimiters neotree all-the-icons projectile general ace-jump-mode evil-magit magit which-key helm doom-themes evil use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+
 ;; custom-set-faces was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.
