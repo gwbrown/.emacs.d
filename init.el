@@ -21,7 +21,7 @@
 (setq-default recent-save-file "~/.emacs.d/recentf")
 
 ;; Font
-(add-to-list 'default-frame-alist '(font . "Iosevka Term 13"))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono 13"))
 
 ;; Generally nice
 (add-hook 'prog-mode-hook #'electric-pair-mode)
@@ -192,12 +192,42 @@
 ;; ---------
 
 ;; Scheme
-(use-package geiser
+(use-package racket-mode
   :ensure t
   :init
-  (setq geiser-active-implementations '(racket)
-        geiser-racket-binary "/usr/local/bin/racket")
-  :pin melpa-stable)
+  (setq racket-program "/usr/local/bin/racket")
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :keymaps 'racket-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+   "msf" '(racket-mode-start-faster :which-key "start faster")
+   "mer" '(racket-send-region :which-key "eval region")
+   "med" '(racket-send-definition :which-key "eval definition")
+   "mes" '(racket-send-last-sexp :which-key "eval last sexp")
+   "meb" '(racket-run :which-key "racket run")
+   "mee" '(racket-run-and-switch-to-repl :which-key "run and goto repl")
+   "mem" '(racket-run-module-at-point :which-key "run module at point")
+   "mep" '(racket-profile-mode :which-key "prfile")
+   "ml"  '(racket-insert-lambda :which-key "insert lambda")
+   "mvm" '(racket-visit-module :which-key "visit module")
+   "mvv" '(racket-unvisit :which-key "unvisit")
+   "mtt" '(racket-test :which-key "run tests")
+   "mtf" '(racket-fold-all-tests :which-key "fold tests")
+   "mtF" '(racket-unfold-all-tests :which-key "unfold tests")
+   "mfr" '(racket-tidy-requires :which-key "format requires")
+   "mfR" '(racket-trim-requires :which-key "minimize requires")
+   "mfb" '(racket-base-requires :which-key "racket -> racket/base")
+   "mc"  '(racket-cycle-paren-shapes :which-key "cycle paren shape")
+   "ml"  '(racket-logger :which-key "logger mode")
+   "mxx" '(racket-xp-mode :which-key "xp mode")
+   "mxn" '(racket-xp-next-error :which-key "next error")
+   "mxp" '(racket-xp-previous-error :which-key "previous error")
+   "mxd" '(racket-xp-describe :which-key "describe at point")
+   "mxr" '(racket-xp-rename :which-key "rename")
+   "mxD" '(racket-xp-documentation :which-key "HTML doc at point")
+   "mxg" '(racket-xp-visit-definition :which-key "visit definition")))
 
 ;; Lisp
 (use-package sly
@@ -223,7 +253,8 @@
     (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
     (add-hook 'common-lisp-mode-hook #'parinfer-mode)
     (add-hook 'scheme-mode-hook #'parinfer-mode)
-    (add-hook 'lisp-mode-hook #'parinfer-mode))
+    (add-hook 'lisp-mode-hook #'parinfer-mode)
+    (add-hook 'racket-mode-hook #'parinfer-mode))
   :config
   (progn
     (general-define-key
@@ -291,23 +322,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-collection es-mode markdown-mode adoc-mode parinfer sly geiser rainbow-delimiters neotree all-the-icons projectile general ace-jump-mode evil-magit magit which-key helm doom-themes evil use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-;; custom-set-faces was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
-
-;; custom-set-faces was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
-
+    (racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode))))
+(custom-set-faces)
 ;; custom-set-faces was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.

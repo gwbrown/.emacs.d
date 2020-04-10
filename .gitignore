@@ -6,3 +6,5 @@ recentf
 magithub/*
 transient/*
 semanticdb/*
+tramp
+racket-mode/*
