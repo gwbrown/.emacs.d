@@ -8,3 +8,4 @@ transient/*
 semanticdb/*
 tramp
 racket-mode/*
+parinfer-rust/*

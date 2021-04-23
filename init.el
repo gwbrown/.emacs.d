@@ -104,17 +104,6 @@
 (use-package magit
   :ensure t)
 
-(use-package evil-magit
-  :ensure t
-  :init
-  (require 'evil-magit))
-
-;; Magithub is nice but is just way too slow with big repos like ES
-;; (use-package magithub
-;;   :ensure t
-;;   :config
-;;   (magithub-feature-autoinject t))
-
 ;; Movement
 (use-package ace-jump-mode
   :ensure t)
@@ -246,39 +235,59 @@
    "mer" '(sly-eval-region :which-key "eval region")
    "med" '(sly-eval-defun  :which-key "eval defun")))
 
-(use-package parinfer
+(use-package parinfer-rust-mode
   :ensure t
   :init
   (progn
-    (setq parinfer-extensions '(defaults pretty-parens evil smart-tab))
-    (add-hook 'clojure-mode-hook #'parinfer-mode)
-    (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
-    (add-hook 'common-lisp-mode-hook #'parinfer-mode)
-    (add-hook 'scheme-mode-hook #'parinfer-mode)
-    (add-hook 'lisp-mode-hook #'parinfer-mode)
-    (add-hook 'racket-mode-hook #'parinfer-mode))
+   (setq parinfer-rust-auto-download t)
+   (add-hook 'clojure-mode-hook #'parinfer-rust-mode)
+   (add-hook 'emacs-lisp-mode-hook #'parinfer-rust-mode)
+   (add-hook 'common-lisp-mode-hook #'parinfer-rust-mode)
+   (add-hook 'scheme-mode-hook #'parinfer-rust-mode)
+   (add-hook 'lisp-mode-hook #'parinfer-rust-mode)
+   (add-hook 'racket-mode-hook #'parinfer-rust-mode))
   :config
   (progn
-    (general-define-key
-     :states '(normal visual insert emacs)
-     :keymaps
-     '(emacs-lisp-mode-map
-       clojure-mode-map
-       common-lisp-mode-map
-       scheme-mode-map
-       lisp-mode-map)
-     "TAB" 'parinfer-smart-tab:dwim-right
-     "<tab>" 'parinfer-smart-tab:dwim-right
-     "S-TAB" 'parinfer-smart-tab:dwim-left
-     "<backtab>" 'parinfer-smart-tab:dwim-left)
-    (parinfer-strategy-add 'default
-      '("parinfer-smart-tab"))
-    ;; Disable electric pair of parens in parinfer-mode
-    (add-hook 'parinfer-mode-hook
-              (lambda ()
-                (setq-local electric-pair-inhibit-predicate
-                            `(lambda (c)
-                               (if (char-equal c 40) t (,electric-pair-inhibit-predicate c))))))))
+    (setq parinfer-rust-troublesome-modes '(hungry-delete-mode global-hungry-delete-mode))
+    (add-hook 'parinfer-rust-mode-hook
+         (lambda ()
+           (add-hook 'electric-indent-functions
+                     (lambda () 'no-indent) nil 'local)))))
+   
+
+;; (use-package parinfer
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (setq parinfer-extensions '(defaults pretty-parens evil smart-tab))
+;;     (add-hook 'clojure-mode-hook #'parinfer-mode)
+;;     (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+;;     (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+;;     (add-hook 'scheme-mode-hook #'parinfer-mode)
+;;     (add-hook 'lisp-mode-hook #'parinfer-mode)
+;;     (add-hook 'racket-mode-hook #'parinfer-mode))
+;;   :config
+;;   (progn
+;;     (general-define-key
+;;      :states '(normal visual insert emacs)
+;;      :keymaps
+;;      '(emacs-lisp-mode-map
+;;        clojure-mode-map
+;;        common-lisp-mode-map
+;;        scheme-mode-map
+;;        lisp-mode-map)
+;;      "TAB" 'parinfer-smart-tab:dwim-right
+;;      "<tab>" 'parinfer-smart-tab:dwim-right
+;;      "S-TAB" 'parinfer-smart-tab:dwim-left
+;;      "<backtab>" 'parinfer-smart-tab:dwim-left)
+;;     (parinfer-strategy-add 'default
+;;       '("parinfer-smart-tab"))
+;;     ;; Disable electric pair of parens in parinfer-mode
+;;     (add-hook 'parinfer-mode-hook
+;;               (lambda ()
+;;                 (setq-local electric-pair-inhibit-predicate
+;;                             `(lambda (c)
+;;                                (if (char-equal c 40) t (,electric-pair-inhibit-predicate c))))))))
 
 ;; Asciidoc
 (use-package adoc-mode
@@ -322,15 +331,25 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   (quote
-    (racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode))))
-(custom-set-faces
+   '(racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode)))
+(custom-set-faces)
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ 
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ 
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ 
 ;; custom-set-faces was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.
