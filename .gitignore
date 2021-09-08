@@ -9,3 +9,4 @@ semanticdb/*
 tramp
 racket-mode/*
 parinfer-rust/*
+eln-cache

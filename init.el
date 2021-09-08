@@ -1,5 +1,11 @@
 ;; gwbrown's emacs config
 
+;; Always compile, if native compilation is available
+
+(if (and (fboundp 'native-comp-available-p)
+         (native-comp-available-p))
+    (setq comp-deferred-compilation t))
+
 ;; Adjust UI
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -23,8 +29,6 @@
 ;; Font
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono 13"))
 
-;; Generally nice
-(add-hook 'prog-mode-hook #'electric-pair-mode)
 
 ;; Packages
 (require 'package)
@@ -125,14 +129,6 @@
            "bb"  '(helm-buffers-list :which-key "buffers list")
            "bx"  '(kill-this-buffer :which-key "delete buffer")
            "bk"  '(kill-buffer :which-key "kill buffer")
-           ;; Window
-           "wl"  '(windmove-right :which-key "move right")
-           "wh"  '(windmove-left :which-key "move left")
-           "wk"  '(windmove-up :which-key "move up")
-           "wj"  '(windmove-down :which-key "move bottom")
-           "w/"  '(split-window-right :which-key "split right")
-           "w-"  '(split-window-below :which-key "split bottom")
-           "wx"  '(delete-window :which-key "delete window")
            ;; Movement
            "jj"  '(ace-jump-mode :which-key "ace jump")
            ;; Magit
@@ -235,59 +231,26 @@
    "mer" '(sly-eval-region :which-key "eval region")
    "med" '(sly-eval-defun  :which-key "eval defun")))
 
-(use-package parinfer-rust-mode
+(use-package smartparens
+  ;; This package handles all prog-mode auto-pairing, so we don't need electric pair mode
   :ensure t
   :init
   (progn
-   (setq parinfer-rust-auto-download t)
-   (add-hook 'clojure-mode-hook #'parinfer-rust-mode)
-   (add-hook 'emacs-lisp-mode-hook #'parinfer-rust-mode)
-   (add-hook 'common-lisp-mode-hook #'parinfer-rust-mode)
-   (add-hook 'scheme-mode-hook #'parinfer-rust-mode)
-   (add-hook 'lisp-mode-hook #'parinfer-rust-mode)
-   (add-hook 'racket-mode-hook #'parinfer-rust-mode))
-  :config
-  (progn
-    (setq parinfer-rust-troublesome-modes '(hungry-delete-mode global-hungry-delete-mode))
-    (add-hook 'parinfer-rust-mode-hook
-         (lambda ()
-           (add-hook 'electric-indent-functions
-                     (lambda () 'no-indent) nil 'local)))))
-   
+    (require 'smartparens-config)
+    (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+    (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)))
 
-;; (use-package parinfer
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (setq parinfer-extensions '(defaults pretty-parens evil smart-tab))
-;;     (add-hook 'clojure-mode-hook #'parinfer-mode)
-;;     (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
-;;     (add-hook 'common-lisp-mode-hook #'parinfer-mode)
-;;     (add-hook 'scheme-mode-hook #'parinfer-mode)
-;;     (add-hook 'lisp-mode-hook #'parinfer-mode)
-;;     (add-hook 'racket-mode-hook #'parinfer-mode))
-;;   :config
-;;   (progn
-;;     (general-define-key
-;;      :states '(normal visual insert emacs)
-;;      :keymaps
-;;      '(emacs-lisp-mode-map
-;;        clojure-mode-map
-;;        common-lisp-mode-map
-;;        scheme-mode-map
-;;        lisp-mode-map)
-;;      "TAB" 'parinfer-smart-tab:dwim-right
-;;      "<tab>" 'parinfer-smart-tab:dwim-right
-;;      "S-TAB" 'parinfer-smart-tab:dwim-left
-;;      "<backtab>" 'parinfer-smart-tab:dwim-left)
-;;     (parinfer-strategy-add 'default
-;;       '("parinfer-smart-tab"))
-;;     ;; Disable electric pair of parens in parinfer-mode
-;;     (add-hook 'parinfer-mode-hook
-;;               (lambda ()
-;;                 (setq-local electric-pair-inhibit-predicate
-;;                             `(lambda (c)
-;;                                (if (char-equal c 40) t (,electric-pair-inhibit-predicate c))))))))
+(use-package evil-cleverparens
+  :ensure t
+  :init
+  (progn
+    (require 'evil-cleverparens-text-objects)
+    (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+    (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+    (add-hook 'common-lisp-mode-hook #'evil-cleverparens-mode)
+    (add-hook 'scheme-mode-hook #'evil-cleverparens-mode)
+    (add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
+    (add-hook 'racket-mode-hook #'evil-cleverparens-mode)))
 
 ;; Asciidoc
 (use-package adoc-mode
@@ -333,25 +296,12 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode)))
-(custom-set-faces)
+   '(smartparens racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode))
+ '(warning-suppress-types '((comp) (comp))))
+(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- 
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- 
-;; custom-set-faces was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
+ )
 
