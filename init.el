@@ -106,6 +106,7 @@
 
 ;; Magit
 (use-package magit
+  :commands magit-status
   :ensure t)
 
 ;; Movement
@@ -155,15 +156,6 @@
   :config
   (projectile-mode 1))
 
-;; All The Icons
-(use-package all-the-icons :ensure t)
-
-;; NeoTree
-(use-package neotree
-  :ensure t
-  :init
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
-
 ;; Show matching parens
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -181,8 +173,9 @@
   :ensure t
   :init
   (progn
-    (setq racket-program "/usr/local/bin/racket")
-    (add-hook 'racket-mode-hook #'racket-xp-mode))
+    (setq racket-program "/usr/local/bin/racket"))
+  :mode "\\.rkt\\'"
+  :hook (racket-mode racket-xp-mode)
   :config
   (general-define-key
    :states '(normal visual insert emacs)
@@ -221,6 +214,7 @@
   :ensure t
   :init
   (setq inferior-lisp-program "/usr/local/bin/ros -Q run")
+  :mode ("\\.li?sp\\|.cl\\'" . lisp-mode)
   :config
   (general-define-key
    :states '(normal visual insert emacs)
@@ -234,23 +228,17 @@
 (use-package smartparens
   ;; This package handles all prog-mode auto-pairing, so we don't need electric pair mode
   :ensure t
+  :hook (((markdown-mode prog-mode) . turn-on-smartparens-strict-mode))
   :init
   (progn
-    (require 'smartparens-config)
-    (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-    (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)))
+    (require 'smartparens-config)))
 
 (use-package evil-cleverparens
   :ensure t
+  :hook ((clojure-mode emacs-lisp-mode common-lisp-mode scheme-mode racket-mode) . evil-cleverparens-mode)
   :init
   (progn
-    (require 'evil-cleverparens-text-objects)
-    (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'common-lisp-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'scheme-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'racket-mode-hook #'evil-cleverparens-mode)))
+    (require 'evil-cleverparens-text-objects)))
 
 ;; Asciidoc
 (use-package adoc-mode
