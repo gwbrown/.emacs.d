@@ -3,8 +3,8 @@
 ;; Always compile, if native compilation is available
 
 (if (and (fboundp 'native-comp-available-p)
-         (native-comp-available-p))
-    (setq comp-deferred-compilation t))
+        (native-comp-available-p))
+   (setq comp-deferred-compilation t))
 
 ;; Adjust UI
 (tool-bar-mode -1)
@@ -222,8 +222,55 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
    "mm"  '(sly             :which-key "start sly")
+   "mes" '(sly-mrepl-sync  :which-key "sync repl package & dir")
    "mer" '(sly-eval-region :which-key "eval region")
-   "med" '(sly-eval-defun  :which-key "eval defun")))
+   "med" '(sly-eval-defun  :which-key "eval toplevel form")
+   "mel" '(sly-eval-last-expression :which-key "eval last exp")
+   "mei" '(sly-interactive-eval :which-key "interactive eval")
+   "mev" '(sly-edit-value :which-key "edit value")
+   "meu" '(sly-undefine-function :which-key "undefine symbol at point")
+   "mem" '(sly-expand-1    :which-key "expand 1 at point")
+   "meM" '(sly-macroexpand-all :which-key "fully expand at point")
+   "meD" '(sly-compile-defun :which-key "compile toplevel form")
+   "meB" '(sly-compile-and-load-file :which-key "compile & load file")
+   "meR" '(sly-compile-region :which-key "compile region")
+   
+   "mnc" '(sly-remove-notes :which-key "clear notes")
+   "mnj" '(sly-next-note :which-key "next note")
+   "mnk" '(sly-previous-node :which-key "previous note")
+   
+   "mgd" '(sly-edit-definition :which-key "go to definition")
+   "mgb" '(sly-pop-find-dfinition-stack :which-key "go back")
+   "mgD" '(sly-edit-definition-other-window :which-key "open def in other window")
+   "mgu" '(sly-edit-uses :which-key "find uses")
+   "mgc" '(sly-who-calls :which-key "find callers")
+   "mgC" '(sly-calls-who :which-key "find callees")
+   "mgr" '(sly-who-references :which-key "find global var refs")
+   "mgb" '(sly-who-binds :which-key "find global var bindings")
+   "mga" '(sly-who-sets :which-key "find assignments of global var")
+   "mgs" '(sly-who-specializes :which-key "find specialized methods")
+
+   "mdd" '(sly-describe-symbol :which-key "describe symbol at point")
+   "mdf" '(sly-describe-function :which-key "describe function at point")
+   "mda" '(sly-apropos :which-key "regex search external symbols")
+   "mdA" '(sly-apropos-all :which-key "regex search all symbols")
+   "mdp" '(sly-apropos-package :which-key "describe package")
+   "mdh" '(sly-hyperspec-lookup :which-key "hyperspec lookup at point")
+   "md#" '(hyperspec-lookup-reader-macro :which-key "lookup reader macro in hyperspec")
+   "md~" '(hyperspec-lookup-format :which-key "lookup format character in hyperspec")
+
+   "mi"  '(sly-inspect :which-key "inspect value")
+
+   "mss" '(sly-stickers-dwim :which-key "stickers dwim")
+   "msr" '(sly-stickers-replay :which-key "replay stickers")
+   "msb" '(sly-stickers-toggle-break-on-stickers :which-key "toggle break on stickers")
+   "msf" '(sly-stickers-fetch :which-key "fetch latest results")
+   "msj" '(sly-stickers-next-sticker :which-key "next sticker")
+   "msk" '(sly-stickers-prev-sticker :which-key "previous sticker")
+   
+   "mtt" '(sly-trace-dialog-toggle-trace :which-key "toggle sly trace")
+   "mtT" '(sly-trace-dialog :which-key "trace dialog")
+   "mtc" '(sly-untrace-all :which-key "untrace all functions")))
 
 (use-package smartparens
   ;; This package handles all prog-mode auto-pairing, so we don't need electric pair mode
