@@ -4,7 +4,8 @@
 
 (if (and (fboundp 'native-comp-available-p)
         (native-comp-available-p))
-   (setq comp-deferred-compilation t))
+    (setq comp-deferred-compilation t)
+    (setq package-native-compile t))
 
 ;; Adjust UI
 (tool-bar-mode -1)
@@ -45,12 +46,14 @@
   (package-install 'use-package))
 (require 'use-package)
 
+;; Set these variables BEFORE loading evil stuff
+(setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-collection-calendar-want-org-bindings t
+        evil-collection-setup-minibuffer t)
 ;; Vim mode
 (use-package evil
   :ensure t
-  :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil)
   :config
   (evil-mode 1))
 
@@ -111,6 +114,7 @@
 
 ;; Movement
 (use-package ace-jump-mode
+  :commands ace-jump-mode
   :ensure t)
 
 ;; Custom keybinding
@@ -151,6 +155,7 @@
 ;; Projectile
 (use-package projectile
   :ensure t
+  :defer 1
   :init
   (setq projectile-require-project-root nil)
   :config
@@ -162,8 +167,7 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Languages
 ;; ---------
@@ -331,12 +335,10 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(smartparens racket-mode which-key use-package sly rainbow-delimiters projectile parinfer neotree markdown-mode helm general geiser faceup evil-magit evil-collection es-mode doom-themes all-the-icons adoc-mode ace-jump-mode))
- '(warning-suppress-types '((comp) (comp))))
+   '(company-quickhelp-terminal company-quickhelp which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company adoc-mode ace-jump-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
