@@ -62,6 +62,20 @@
   :config
   (evil-collection-init))
 
+(use-package company
+  :ensure t
+  :config (global-company-mode))
+
+(use-package company-quickhelp
+  :ensure t
+  :requires company
+  :config (company-quickhelp-mode))
+
+(use-package company-quickhelp-terminal
+  :ensure t
+  :requires (company company-quickhelp)
+  :config (company-quickhelp-terminal-mode 1))
+
 ;; Theme
 (use-package doom-themes
   :ensure t
