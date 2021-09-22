@@ -65,6 +65,7 @@
 
 (use-package company
   :ensure t
+  :defer 1
   :config (global-company-mode))
 
 (use-package company-quickhelp
@@ -86,6 +87,7 @@
 ;; Helm
 (use-package helm
   :ensure t
+  :defer 1
   :init
   (setq helm-M-x-fuzzy-match t
         helm-mode-fuzzy-match t
@@ -350,7 +352,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(company-quickhelp-terminal company-quickhelp which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company adoc-mode ace-jump-mode)))
+   '(esup company-quickhelp-terminal company-quickhelp which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company adoc-mode ace-jump-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
