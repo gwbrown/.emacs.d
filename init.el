@@ -1,5 +1,8 @@
 ;; gwbrown's emacs config
 
+;; Don't need to GC aggressively during starting
+(setq gc-cons-threshold (* 50 1024 1024)) ;; 50 MB
+
 ;; Always compile, if native compilation is available
 
 (if (and (fboundp 'native-comp-available-p)
@@ -344,6 +347,9 @@
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 (setq create-lockfiles nil)  ; stop making .#lock files
+
+;; Set GC threshold back down so that GC pauses don't take forever
+(setq gc-cons-threshold (* 2 1024 1024))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
