@@ -48,9 +48,10 @@
 
 ;; Set these variables BEFORE loading evil stuff
 (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-collection-calendar-want-org-bindings t
-        evil-collection-setup-minibuffer t)
+      evil-want-keybinding nil
+      evil-collection-calendar-want-org-bindings t
+      evil-collection-setup-minibuffer t)
+
 ;; Vim mode
 (use-package evil
   :ensure t
