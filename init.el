@@ -79,7 +79,7 @@
 (use-package company-quickhelp-terminal
   :ensure t
   :requires (company company-quickhelp)
-  :config (company-quickhelp-terminal-mode 1))
+  :config (company-quickhelp-terminal-mode))
 
 ;; Theme
 (use-package doom-themes
@@ -146,6 +146,7 @@
            :non-normal-prefix "C-SPC"
            ;; "/"   '(counsel-rg :which-key "ripgrep") ; You'll need counsel package for this
            "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+           "w"   '(other-window :which-key "switch to other window")
            "SPC" '(helm-M-x :which-key "M-x")
            ;; File browsing
            "ff"  '(helm-find-files :which-key "find files")
@@ -343,6 +344,27 @@
   :mode
   ("\\.es$" . es-mode))
 
+(use-package erc
+  :ensure t
+  :commands erc
+  :init
+  (progn
+    (remove-hook 'erc-text-matched-hook 'erc-hide-fools) ;; Dim fools rather than hide entirely
+    (setq erc-nick "Arcsech"
+          erc-user-full-name "Gordon Brown"
+          erc-pals  '()
+          erc-fools '()
+          erc-keywords '("\\belasticsearch\\b" "\\bADHD\\b" "\\badhd\\b" "\\bArcsech\\b" "\\bGordon\\b")
+          erc-autojoin-channels-alist '(("irc.libera.chat"
+                                         "#emacs"
+                                         "#lisp"
+                                         "#commonlisp"
+                                         "#elasticsearch"
+                                         "#java"
+                                         "#scheme"
+                                         "#racket"
+                                         "#sbcl")))))
+
 ;; Disable backup files
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
@@ -351,17 +373,4 @@
 ;; Set GC threshold back down so that GC pauses don't take forever
 (setq gc-cons-threshold (* 2 1024 1024))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(esup company-quickhelp-terminal company-quickhelp which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company adoc-mode ace-jump-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
