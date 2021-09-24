@@ -85,7 +85,9 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one t))
+  (progn
+    (load-theme 'doom-manegarm t)
+    (doom-themes-visual-bell-config)))
 
 ;; Helm
 (use-package helm
