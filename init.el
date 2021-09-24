@@ -154,13 +154,16 @@
            "ff"  '(helm-find-files :which-key "find files")
            "fj"  '(helm-mini :which-key "helm mini")
            ;; Buffers
-           "bb"  '(helm-buffers-list :which-key "buffers list")
-           "bx"  '(kill-this-buffer :which-key "delete buffer")
-           "bk"  '(kill-buffer :which-key "kill buffer")
+           "q"  '(kill-this-buffer :which-key "delete buffer")
            ;; Movement
            "j"  '(ace-jump-mode :which-key "ace jump")
            ;; Magit
            "g"  '(magit-status :which-key "magit status")
+           ;; Smartparens
+           "s"  '(sp-forward-slurp-sexp :which-key "slurp forward")
+           "S"  '(sp-backward-slurp-sexp :which-key "slurp backward")
+           "b"  '(sp-forward-barf-sexp :which-key "barf forward")
+           "B"  '(sp-backward-barf-sexp :which-key "barf backward")
            ;; Evaluation
            "eb"  '(eval-buffer :which-key "evalutate buffer")
            "ee"  '(eval-last-sexp :which-key "evaluate last expression")
@@ -210,24 +213,32 @@
    :prefix ","
    :non-normal-prefix "C-,"
    "sf" '(racket-mode-start-faster :which-key "start faster")
+   
    "er" '(racket-send-region :which-key "eval region")
-   "ed" '(racket-send-definition :which-key "eval definition")
-   "es" '(racket-send-last-sexp :which-key "eval last sexp")
-   "eb" '(racket-run :which-key "racket run")
-   "ee" '(racket-run-and-switch-to-repl :which-key "run and goto repl")
-   "em" '(racket-run-module-at-point :which-key "run module at point")
-   "ep" '(racket-profile-mode :which-key "prfile")
+   "ed" '(racket-send-definition :which-key "eval toplevel form")
+   "es" '(racket-send-last-sexp :which-key "eval last exp")
+   "eb" '(racket-run :which-key "save and eval buffer")
+   "ee" '(racket-run-and-switch-to-repl :which-key "save, eval, & goto repl")
+   "em" '(racket-run-module-at-point :which-key "save & eval module at point")
+   "ep" '(racket-profile :which-key "save, eval, & profile module at point")
+   "eM" '(racket-stepper-mode :which-key "expansion stepper mode")
+   
    "l"  '(racket-insert-lambda :which-key "insert lambda")
+   
    "vm" '(racket-visit-module :which-key "visit module")
    "vv" '(racket-unvisit :which-key "unvisit")
+   
    "tt" '(racket-test :which-key "run tests")
    "tf" '(racket-fold-all-tests :which-key "fold tests")
    "tF" '(racket-unfold-all-tests :which-key "unfold tests")
+   
    "fr" '(racket-tidy-requires :which-key "format requires")
    "fR" '(racket-trim-requires :which-key "minimize requires")
    "fb" '(racket-base-requires :which-key "racket -> racket/base")
+   
    "c"  '(racket-cycle-paren-shapes :which-key "cycle paren shape")
    "l"  '(racket-logger :which-key "logger mode")
+   
    "xx" '(racket-xp-mode :which-key "xp mode")
    "xn" '(racket-xp-next-error :which-key "next error")
    "xp" '(racket-xp-previous-error :which-key "previous error")
