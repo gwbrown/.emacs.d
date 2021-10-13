@@ -139,6 +139,7 @@
   (which-key-mode 1))
 
 ;; Line numbers
+(column-number-mode)
 ;;(setq display-line-number t)
 ;;(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
