@@ -62,10 +62,16 @@
   :config
   (evil-mode 1))
 
+;; Let Esc act like C-g
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 (use-package evil-collection
   :ensure t
   :config
   (evil-collection-init))
+
+(use-package command-log-mode
+  :commands command-log-mode)
 
 (use-package delight
   :ensure t)
