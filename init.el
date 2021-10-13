@@ -33,7 +33,6 @@
 ;; Font
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono 13"))
 
-
 ;; Packages
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -52,12 +51,14 @@
 ;; Set these variables BEFORE loading evil stuff
 (setq evil-want-integration t
       evil-want-keybinding nil
+      evil-collection-want-unimpaired-p nil
       evil-collection-calendar-want-org-bindings t
       evil-collection-setup-minibuffer t)
 
 ;; Vim mode
 (use-package evil
   :ensure t
+  :diminish
   :config
   (evil-mode 1))
 
@@ -66,9 +67,13 @@
   :config
   (evil-collection-init))
 
+(use-package delight
+  :ensure t)
+
 (use-package company
   :ensure t
   :defer 1
+  :delight " cA"
   :config (global-company-mode))
 
 (use-package company-quickhelp
@@ -93,6 +98,7 @@
 (use-package helm
   :ensure t
   :defer 1
+  :delight " H"
   :init
   (setq helm-M-x-fuzzy-match t
         helm-mode-fuzzy-match t
@@ -119,6 +125,7 @@
 ;; Which Key
 (use-package which-key
   :ensure t
+  :diminish
   :init
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
@@ -126,8 +133,8 @@
   (which-key-mode 1))
 
 ;; Line numbers
-(setq display-line-number t)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+;;(setq display-line-number t)
+;;(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Magit
 (use-package magit
@@ -182,6 +189,7 @@
 (use-package projectile
   :ensure t
   :defer 1
+  :delight '(:eval (concat " P[" (projectile-project-name) "]"))
   :init
   (setq projectile-require-project-root nil)
   :config
@@ -193,7 +201,7 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook ((racket-mode prog-mode) . rainbow-delimiters-mode))
 
 ;; Languages
 ;; ---------
@@ -205,7 +213,7 @@
   (progn
     (setq racket-program "/usr/local/bin/racket"))
   :mode "\\.rkt\\'"
-  :hook (racket-mode racket-xp-mode)
+  ;; :hook (racket-mode . racket-xp-mode)
   :config
   (general-define-key
    :states '(normal visual insert emacs)
@@ -256,7 +264,7 @@
   :config
   (general-define-key
    :states '(normal visual insert emacs)
-   :keymaps 'lisp-mode-map
+   :keymaps '(lisp-mode-map sly-mrepl-mode-map)
    :prefix ","
    :non-normal-prefix "C-,"
    "m"  '(sly             :which-key "start sly")
@@ -313,14 +321,14 @@
 (use-package smartparens
   ;; This package handles all prog-mode auto-pairing, so we don't need electric pair mode
   :ensure t
-  :hook (((markdown-mode prog-mode) . turn-on-smartparens-strict-mode))
+  :hook (((markdown-mode sly-mrepl-mode racket-mode prog-mode) . turn-on-smartparens-strict-mode))
   :init
   (progn
     (require 'smartparens-config)))
 
 (use-package evil-cleverparens
   :ensure t
-  :hook ((clojure-mode emacs-lisp-mode common-lisp-mode scheme-mode racket-mode) . evil-cleverparens-mode)
+  :hook ((clojure-mode emacs-lisp-mode sly-mrepl-mode lisp-mode scheme-mode racket-mode) . evil-cleverparens-mode)
   :init
   (progn
     (require 'evil-cleverparens-text-objects)))
@@ -387,3 +395,17 @@
 (setq gc-cons-threshold (* 2 1024 1024))
 
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-minibuffer-history-key "M-p")
+ '(package-selected-packages
+   '(delight diminish evil-smartparens which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company-quickhelp-terminal adoc-mode ace-jump-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
