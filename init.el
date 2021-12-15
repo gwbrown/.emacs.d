@@ -277,14 +277,14 @@
    "m"  '(sly             :which-key "start sly")
    "es" '(sly-mrepl-sync  :which-key "sync repl package & dir")
    "er" '(sly-eval-region :which-key "eval region")
-   "ed" '(sly-eval-defun  :which-key "eval toplevel form")
+   "eD" '(sly-eval-defun  :which-key "eval toplevel form")
    "el" '(sly-eval-last-expression :which-key "eval last exp")
    "ei" '(sly-interactive-eval :which-key "interactive eval")
    "ev" '(sly-edit-value :which-key "edit value")
    "eu" '(sly-undefine-function :which-key "undefine symbol at point")
    "em" '(sly-expand-1    :which-key "expand 1 at point")
    "eM" '(sly-macroexpand-all :which-key "fully expand at point")
-   "eD" '(sly-compile-defun :which-key "compile toplevel form")
+   "ed" '(sly-compile-defun :which-key "compile toplevel form")
    "eB" '(sly-compile-and-load-file :which-key "compile & load file")
    "eR" '(sly-compile-region :which-key "compile region")
    
@@ -293,8 +293,8 @@
    "nk" '(sly-previous-node :which-key "previous note")
    
    "gd" '(sly-edit-definition :which-key "go to definition")
-   "gb" '(sly-pop-find-dfinition-stack :which-key "go back")
-   "gD" '(sly-edit-definition-other-window :which-key "open def in other window")
+   "gD" '(sly-pop-find-definition-stack :which-key "go back")
+   "gw" '(sly-edit-definition-other-window :which-key "open def in other window")
    "gu" '(sly-edit-uses :which-key "find uses")
    "gc" '(sly-who-calls :which-key "find callers")
    "gC" '(sly-calls-who :which-key "find callees")
@@ -335,6 +335,7 @@
 
 (use-package evil-cleverparens
   :ensure t
+  :after smartparens
   :hook ((clojure-mode emacs-lisp-mode sly-mrepl-mode lisp-mode scheme-mode racket-mode) . evil-cleverparens-mode)
   :init
   (progn
@@ -409,7 +410,7 @@
  ;; If there is more than one, they won't work right.
  '(helm-minibuffer-history-key "M-p")
  '(package-selected-packages
-   '(delight diminish evil-smartparens which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company-quickhelp-terminal adoc-mode ace-jump-mode)))
+   '(command-log-mode delight diminish evil-smartparens which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company-quickhelp-terminal adoc-mode ace-jump-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
