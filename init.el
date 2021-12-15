@@ -78,7 +78,6 @@
 
 (use-package company
   :ensure t
-  :defer 1
   :delight " cA"
   :config (global-company-mode))
 
@@ -103,7 +102,6 @@
 ;; Helm
 (use-package helm
   :ensure t
-  :defer 1
   :delight " H"
   :init
   (setq helm-M-x-fuzzy-match t
@@ -195,7 +193,6 @@
 ;; Projectile
 (use-package projectile
   :ensure t
-  :defer 1
   :delight '(:eval (concat " P[" (projectile-project-name) "]"))
   :init
   (setq projectile-require-project-root nil)
