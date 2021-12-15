@@ -15,6 +15,8 @@
 (tooltip-mode -1)
 (menu-bar-mode t)
 
+(setq custom-file "~/.emacs.d/custom.el")
+
 ;; Various settings
 (setq vc-follow-symlinks t) ;; don't ask for confirmation when opening symlinked file
 (setq inhibit-startup-screen t) ;; inhibit useless and old-school startup screen
@@ -260,7 +262,69 @@
    "xg" '(racket-xp-visit-definition :which-key "visit definition")))
 
 ;; Lisp
-(use-package sly
+;; (use-package sly
+;;   :ensure t
+;;   :init
+;;   (setq inferior-lisp-program "/usr/local/bin/ros -Q run")
+;;   :mode ("\\.li?sp\\|.cl\\'" . lisp-mode)
+;;   :config
+;;   (general-define-key
+;;    :states '(normal visual insert emacs)
+;;    :keymaps '(lisp-mode-map sly-mrepl-mode-map)
+;;    :prefix ","
+;;    :non-normal-prefix "C-,"
+;;    "m"  '(sly             :which-key "start sly")
+;;    "es" '(sly-mrepl-sync  :which-key "sync repl package & dir")
+;;    "er" '(sly-eval-region :which-key "eval region")
+;;    "eD" '(sly-eval-defun  :which-key "eval toplevel form")
+;;    "el" '(sly-eval-last-expression :which-key "eval last exp")
+;;    "ei" '(sly-interactive-eval :which-key "interactive eval")
+;;    "ev" '(sly-edit-value :which-key "edit value")
+;;    "eu" '(sly-undefine-function :which-key "undefine symbol at point")
+;;    "em" '(sly-expand-1    :which-key "expand 1 at point")
+;;    "eM" '(sly-macroexpand-all :which-key "fully expand at point")
+;;    "ed" '(sly-compile-defun :which-key "compile toplevel form")
+;;    "eB" '(sly-compile-and-load-file :which-key "compile & load file")
+;;    "eR" '(sly-compile-region :which-key "compile region")
+   
+;;    "nc" '(sly-remove-notes :which-key "clear notes")
+;;    "nj" '(sly-next-note :which-key "next note")
+;;    "nk" '(sly-previous-node :which-key "previous note")
+   
+;;    "gd" '(sly-edit-definition :which-key "go to definition")
+;;    "gD" '(sly-pop-find-definition-stack :which-key "go back")
+;;    "gw" '(sly-edit-definition-other-window :which-key "open def in other window")
+;;    "gu" '(sly-edit-uses :which-key "find uses")
+;;    "gc" '(sly-who-calls :which-key "find callers")
+;;    "gC" '(sly-calls-who :which-key "find callees")
+;;    "gr" '(sly-who-references :which-key "find global var refs")
+;;    "gb" '(sly-who-binds :which-key "find global var bindings")
+;;    "ga" '(sly-who-sets :which-key "find assignments of global var")
+;;    "gs" '(sly-who-specializes :which-key "find specialized methods")
+
+;;    "dd" '(sly-describe-symbol :which-key "describe symbol at point")
+;;    "df" '(sly-describe-function :which-key "describe function at point")
+;;    "da" '(sly-apropos :which-key "regex search external symbols")
+;;    "dA" '(sly-apropos-all :which-key "regex search all symbols")
+;;    "dp" '(sly-apropos-package :which-key "describe package")
+;;    "dh" '(sly-hyperspec-lookup :which-key "hyperspec lookup at point")
+;;    "d#" '(hyperspec-lookup-reader-macro :which-key "lookup reader macro in hyperspec")
+;;    "d~" '(hyperspec-lookup-format :which-key "lookup format character in hyperspec")
+
+;;    "i"  '(sly-inspect :which-key "inspect value")
+
+;;    "ss" '(sly-stickers-dwim :which-key "stickers dwim")
+;;    "sr" '(sly-stickers-replay :which-key "replay stickers")
+;;    "sb" '(sly-stickers-toggle-break-on-stickers :which-key "toggle break on stickers")
+;;    "sf" '(sly-stickers-fetch :which-key "fetch latest results")
+;;    "sj" '(sly-stickers-next-sticker :which-key "next sticker")
+;;    "sk" '(sly-stickers-prev-sticker :which-key "previous sticker")
+   
+;;    "tt" '(sly-trace-dialog-toggle-trace :which-key "toggle sly trace")
+;;    "tT" '(sly-trace-dialog :which-key "trace dialog")
+;;    "tc" '(sly-untrace-all :which-key "untrace all functions")))
+
+(use-package slime
   :ensure t
   :init
   (setq inferior-lisp-program "/usr/local/bin/ros -Q run")
@@ -268,59 +332,52 @@
   :config
   (general-define-key
    :states '(normal visual insert emacs)
-   :keymaps '(lisp-mode-map sly-mrepl-mode-map)
+   :keymaps '(lisp-mode-map slime-repl-mode-map)
    :prefix ","
    :non-normal-prefix "C-,"
-   "m"  '(sly             :which-key "start sly")
-   "es" '(sly-mrepl-sync  :which-key "sync repl package & dir")
-   "er" '(sly-eval-region :which-key "eval region")
-   "eD" '(sly-eval-defun  :which-key "eval toplevel form")
-   "el" '(sly-eval-last-expression :which-key "eval last exp")
-   "ei" '(sly-interactive-eval :which-key "interactive eval")
-   "ev" '(sly-edit-value :which-key "edit value")
-   "eu" '(sly-undefine-function :which-key "undefine symbol at point")
-   "em" '(sly-expand-1    :which-key "expand 1 at point")
-   "eM" '(sly-macroexpand-all :which-key "fully expand at point")
-   "ed" '(sly-compile-defun :which-key "compile toplevel form")
-   "eB" '(sly-compile-and-load-file :which-key "compile & load file")
-   "eR" '(sly-compile-region :which-key "compile region")
+   "m"  '(slime             :which-key "start slime")
+   "es" '(slime-sync-package-and-default-directory  :which-key "sync repl package & dir")
+   "er" '(slime-eval-region :which-key "eval region")
+   "eD" '(slime-eval-defun  :which-key "eval toplevel form")
+   "el" '(slime-eval-last-expression :which-key "eval last exp")
+   "ei" '(slime-interactive-eval :which-key "interactive eval")
+   "ev" '(slime-edit-value :which-key "edit value")
+   "eu" '(slime-undefine-function :which-key "undefine symbol at point")
+   "em" '(slime-expand-1    :which-key "expand 1 at point")
+   "eM" '(slime-macroexpand-all :which-key "fully expand at point")
+   "ed" '(slime-compile-defun :which-key "compile toplevel form")
+   "eB" '(slime-compile-and-load-file :which-key "compile & load file")
+   "eR" '(slime-compile-region :which-key "compile region")
    
-   "nc" '(sly-remove-notes :which-key "clear notes")
-   "nj" '(sly-next-note :which-key "next note")
-   "nk" '(sly-previous-node :which-key "previous note")
+   "nc" '(slime-remove-notes :which-key "clear notes")
+   "nj" '(slime-next-note :which-key "next note")
+   "nk" '(slime-previous-node :which-key "previous note")
    
-   "gd" '(sly-edit-definition :which-key "go to definition")
-   "gD" '(sly-pop-find-definition-stack :which-key "go back")
-   "gw" '(sly-edit-definition-other-window :which-key "open def in other window")
-   "gu" '(sly-edit-uses :which-key "find uses")
-   "gc" '(sly-who-calls :which-key "find callers")
-   "gC" '(sly-calls-who :which-key "find callees")
-   "gr" '(sly-who-references :which-key "find global var refs")
-   "gb" '(sly-who-binds :which-key "find global var bindings")
-   "ga" '(sly-who-sets :which-key "find assignments of global var")
-   "gs" '(sly-who-specializes :which-key "find specialized methods")
+   "gd" '(slime-edit-definition :which-key "go to definition")
+   "gD" '(slime-pop-find-definition-stack :which-key "go back")
+   "gw" '(slime-edit-definition-other-window :which-key "open def in other window")
+   ;; "gu" '(slime-edit-uses :which-key "find uses") ; slime doesn't have this AFAICT
+   "gc" '(slime-who-calls :which-key "find callers")
+   "gC" '(slime-calls-who :which-key "find callees")
+   "gr" '(slime-who-references :which-key "find global var refs")
+   "gb" '(slime-who-binds :which-key "find global var bindings")
+   "ga" '(slime-who-sets :which-key "find assignments of global var")
+   "gs" '(slime-who-specializes :which-key "find specialized methods")
 
-   "dd" '(sly-describe-symbol :which-key "describe symbol at point")
-   "df" '(sly-describe-function :which-key "describe function at point")
-   "da" '(sly-apropos :which-key "regex search external symbols")
-   "dA" '(sly-apropos-all :which-key "regex search all symbols")
-   "dp" '(sly-apropos-package :which-key "describe package")
-   "dh" '(sly-hyperspec-lookup :which-key "hyperspec lookup at point")
+   "dd" '(slime-describe-symbol :which-key "describe symbol at point")
+   "df" '(slime-describe-function :which-key "describe function at point")
+   "da" '(slime-apropos :which-key "regex search external symbols")
+   "dA" '(slime-apropos-all :which-key "regex search all symbols")
+   "dp" '(slime-apropos-package :which-key "describe package")
+   "dh" '(slime-hyperspec-lookup :which-key "hyperspec lookup at point")
    "d#" '(hyperspec-lookup-reader-macro :which-key "lookup reader macro in hyperspec")
    "d~" '(hyperspec-lookup-format :which-key "lookup format character in hyperspec")
 
-   "i"  '(sly-inspect :which-key "inspect value")
+   "i"  '(slime-inspect :which-key "inspect value")
 
-   "ss" '(sly-stickers-dwim :which-key "stickers dwim")
-   "sr" '(sly-stickers-replay :which-key "replay stickers")
-   "sb" '(sly-stickers-toggle-break-on-stickers :which-key "toggle break on stickers")
-   "sf" '(sly-stickers-fetch :which-key "fetch latest results")
-   "sj" '(sly-stickers-next-sticker :which-key "next sticker")
-   "sk" '(sly-stickers-prev-sticker :which-key "previous sticker")
-   
-   "tt" '(sly-trace-dialog-toggle-trace :which-key "toggle sly trace")
-   "tT" '(sly-trace-dialog :which-key "trace dialog")
-   "tc" '(sly-untrace-all :which-key "untrace all functions")))
+   "tt" '(slime-trace-dialog-toggle-trace :which-key "toggle sly trace")
+   "tT" '(slime-trace-dialog :which-key "trace dialog")
+   "tc" '(slime-untrace-all :which-key "untrace all functions")))
 
 (use-package smartparens
   ;; This package handles all prog-mode auto-pairing, so we don't need electric pair mode
@@ -398,19 +455,3 @@
 
 ;; Set GC threshold back down so that GC pauses don't take forever
 (setq gc-cons-threshold (* 2 1024 1024))
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(package-selected-packages
-   '(command-log-mode delight diminish evil-smartparens which-key use-package sly rainbow-delimiters racket-mode projectile markdown-mode magit helm general evil-collection evil-cleverparens es-mode doom-themes company-quickhelp-terminal adoc-mode ace-jump-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
